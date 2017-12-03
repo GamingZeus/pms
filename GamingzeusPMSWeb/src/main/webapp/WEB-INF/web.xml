@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0" metadata-complete="true">
+	<display-name>PMS Web Application</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/applicationContext.xml /WEB-INF/spring/security-applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.gamingzeus.pms.web.listener.PMSContextListener</listener-class>
+	</listener>
+	<filter>
+		<filter-name>requestIdentifierFilter</filter-name>
+		<filter-class>com.gamingzeus.pms.web.filter.RequestIdentifierFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>requestIdentifierFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+<!-- 	<filter> -->
+<!-- 		<filter-name>accessControlFilter</filter-name> -->
+<!-- 		<filter-class>com.gamingzeus.pms.web.filter.AccessControlFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>accessControlFilter</filter-name> -->
+<!-- 		<url-pattern>/admin/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- Map static resources to the default servlet this is implicit servlet 
+		provided by tomcat -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<!-- eliminate welcome files -->
+	<!-- useful for Servlet 3 container (Tomcat 7 and Jetty 6) -->
+	<welcome-file-list>
+		<welcome-file></welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/info/error?code=401</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/info/error?code=404</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/info/error?code=500</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/info/error?code=403</location>
+	</error-page>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure Resources</web-resource-name>
+			<url-pattern>/secure/*</url-pattern>
+			<!-- check if it is secured for all method types GET, POST, HEAD -->
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+</web-app>

@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>gamingzeus.pms</groupId>
+		<artifactId>GamingzeusPMS</artifactId>
+		<version>1.0</version>
+	</parent>
+	<groupId>gamingzeus.pms.web</groupId>
+	<artifactId>GamingzeusPMSWeb</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>GamingzeusPMSWeb</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>gamingzeus.pms.services</groupId>
+			<artifactId>GamingzeusPMSServices</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>gamingzeus-pms</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<attachClasses>true</attachClasses>
+					<manifest>
+						<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+					</manifest>
+					<archive>
+						<manifestEntries>
+							<Major-Version>${project.version}</Major-Version>
+							<Build-Version>${build.number}</Build-Version>
+							<Build-Time>${maven.build.timestamp}</Build-Time>
+							<Build-Host>${agent.name}</Build-Host>
+							<Build-User>${user.name}</Build-User>
+							<Branch-Name>${branch.name}</Branch-Name>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>net.alchim31.maven</groupId>
+										<artifactId>yuicompressor-maven-plugin</artifactId>
+										<versionRange>[1.3.2,)</versionRange>
+										<goals>
+											<goal>compress</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<profiles>
+		<profile>
+			<id>devDeploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<property file="${user.dir}/user.properties" />
+										<echo message="+---------------------------------------------------+" />
+										<echo message="    deleting war from tomcat server" />
+										<echo message="+---------------------------------------------------+" />
+										<delete includeEmptyDirs="true" failonerror="false">
+											<fileset dir="${webapp.home}" />
+										</delete>
+										<echo message="+---------------------------------------------------+" />
+										<echo message="    copying war to tomcat server" />
+										<echo message="+---------------------------------------------------+" />
+										<copy todir="${webapp.home}" overwrite="true">
+											<fileset dir="${project.build.directory}/gamingzeus-pms">
+												<include name="**/*" />
+											</fileset>
+										</copy>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

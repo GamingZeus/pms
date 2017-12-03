@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+
+	<!-- tiles configuration -->
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles-defs.xml</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="preparerFactoryClass"
+			value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory" />
+	</beans:bean>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.XmlViewResolver">
+		<beans:property name="order" value="1" />
+		<beans:property name="location">
+			<beans:value>/WEB-INF/spring/views.xml</beans:value>
+		</beans:property>
+	</beans:bean>
+
+	<!-- load http client properties file -->
+	<beans:bean id="httpclientProperties"
+		class="com.gamingzeus.base.utils.HttpClientPropertiesUtil">
+		<beans:property name="location"
+			value="/soa-config/httpclient.properties" />
+	</beans:bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<context:component-scan base-package="com.gamingzeus.pms.web.controller" />
+
+</beans:beans>

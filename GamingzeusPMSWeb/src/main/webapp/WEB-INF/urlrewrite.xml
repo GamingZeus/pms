@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"  "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+	<rule>
+		<condition name="host" operator="equal">^gamingzeus\.com</condition>
+		<from>^/(.*)</from>
+		<to type="permanent-redirect" last="true">http://www.gamingzeus.com/$1</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/js/[a-z0-9]+/(.+\.js)$</from>
+		<set type="response-header" name="Cache-Control">private, max-age=3600000</set>
+		<to last="true">/static/js/$2</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/css/[a-z0-9]+/(.+\.css)$</from>
+		<set type="response-header" name="Cache-Control">private, max-age=3600000</set>
+		<to last="true">/static/css/$2</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/htmlTemplates/[a-z0-9]+/(.+\.html)$</from>
+		<set type="response-header" name="Cache-Control">private, max-age=3600000</set>
+		<to last="true">/static/htmlTemplates/$2</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/(img|font|w3c|doc)/(.*)$</from>
+		<set type="response-header" name="Cache-Control">public, max-age=3600000</set>
+		<to last="true">/static/$2/$3</to>
+	</rule>
+</urlrewrite>
