@@ -10,7 +10,7 @@
 	</parent>
   <groupId>gamingzeus.pms.base</groupId>
   <artifactId>GamingzeusPMSBase</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>GamingzeusPMSBase</name>
@@ -60,10 +60,10 @@
 		</dependency>
   </dependencies>
 	<distributionManagement>
-		<repository>
-			<id>server.development.com</id>
-			<name>server.development.com-releases</name>
-			<url>http://server.development.com:8081/artifactory/libs-release-local</url>
-		</repository>
+<repository>
+                        <id>gamingzeus.development.com</id>
+                        <name>gamingzeus.development.com-releases</name>
+                        <url>http://35.200.149.11:8081/artifactory/libs-release-local</url>
+                </repository>
 	</distributionManagement>
 </project>
