@@ -62,10 +62,10 @@
 		</dependency>
   </dependencies>
   <distributionManagement>
-	<repository>
-                        <id>gamingzeus.development.com</id>
+		<repository>
+			<id>gamingzeus.development.com</id>
                         <name>gamingzeus.development.com-releases</name>
                         <url>http://35.200.149.11:8081/artifactory/libs-release-local</url>
-                </repository>
-</distributionManagement>
+		</repository>
+	</distributionManagement>
 </project>
