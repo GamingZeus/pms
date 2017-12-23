@@ -1,8 +1,11 @@
-/* type: DEBITED, CREDITED, WITHDRAW, DEPOSIT */
+/* type: DEBIT, CREDIT, WITHDRAW, DEPOSIT */
+
 use pms;
 
 CREATE TABLE `transaction` (
   `transaction_id` VARCHAR(64) NOT NULL,
+  `payment_gateway_id` VARCHAR(64) NOT NULL,
+  `payment_gateway` VARCHAR(64) NOT NULL,
   `user_id` VARCHAR(64) NOT NULL,
   `type` VARCHAR(10) NOT NULL,
   `amount` int(11) NOT NULL,

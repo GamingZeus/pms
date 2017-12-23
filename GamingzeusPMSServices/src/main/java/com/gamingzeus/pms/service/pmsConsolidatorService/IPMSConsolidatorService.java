@@ -1,0 +1,18 @@
+package com.gamingzeus.pms.service.pmsConsolidatorService;
+
+import com.gamingzeus.pms.api.challengeTransaction.ChallengeTransactionRequest;
+import com.gamingzeus.pms.api.challengeTransaction.ChallengeTransactionResponse;
+import com.gamingzeus.pms.api.getTransactionChallengesMapping.GetTransactionChallengesMappingRequest;
+import com.gamingzeus.pms.api.getTransactionChallengesMapping.GetTransactionChallengesMappingResponse;
+import com.gamingzeus.pms.api.getTransactionHistory.GetTransactionHistoryRequest;
+import com.gamingzeus.pms.api.getTransactionHistory.GetTransactionHistoryResponse;
+import com.gamingzeus.pms.api.getWalletDetails.GetWalletDetailsRequest;
+import com.gamingzeus.pms.api.getWalletDetails.GetWalletDetailsResponse;
+
+public interface IPMSConsolidatorService {
+
+	GetTransactionHistoryResponse getTransactionHistory(GetTransactionHistoryRequest request);
+	GetTransactionChallengesMappingResponse getTransactionChallengesMappingResponse(GetTransactionChallengesMappingRequest request);
+	GetWalletDetailsResponse getWalletDetails(GetWalletDetailsRequest request);
+	ChallengeTransactionResponse getWalletDetails(ChallengeTransactionRequest request);
+}
