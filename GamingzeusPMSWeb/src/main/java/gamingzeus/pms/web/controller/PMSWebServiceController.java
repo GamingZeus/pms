@@ -84,7 +84,7 @@ public class PMSWebServiceController implements ApplicationContextAware {
 			@RequestBody GetWalletDetailsRequest request) {
 		GetWalletDetailsResponse response = null;
 		try {
-			response = pmsConsolidatorService.getTransactionChallengesMappingResponse(request);
+			response = pmsConsolidatorService.getWalletDetails(request);
 			response.setProtocol(request.getRequestProtocol());
 			response.setCode("0");
 		} catch (Throwable e) {
@@ -102,16 +102,16 @@ public class PMSWebServiceController implements ApplicationContextAware {
 	@RequestMapping("/challengeTransaction")
 	public ChallengeTransactionResponse challengeTransaction(
 			@RequestBody ChallengeTransactionRequest request) {
-		GetWalletDetailsResponse response = null;
+		ChallengeTransactionResponse response = null;
 		try {
-			response = pmsConsolidatorService.getTransactionChallengesMappingResponse(request);
+			response = pmsConsolidatorService.challengeTransaction(request);
 			response.setProtocol(request.getRequestProtocol());
 			response.setCode("0");
 		} catch (Throwable e) {
-			LOG.error("Something went wrong during get transaction challenges mapping");
+			LOG.error("Something went wrong during ChallengeTransactionResponse mapping");
 			LOG.error("Exception", e);
 			LOG.info("Healthcheck error:" + e);
-			response = new GetWalletDetailsResponse();
+			response = new ChallengeTransactionResponse();
 			response.setCode("1");
 			response.setMessage("Something is wrong");
 			return response;

@@ -136,7 +136,7 @@ public class PMSConsolidatorServiceImpl implements IPMSConsolidatorService {
 	}
 
 	@Override
-	public ChallengeTransactionResponse getWalletDetails(
+	public ChallengeTransactionResponse challengeTransaction(
 			ChallengeTransactionRequest request) {
 		ChallengeTransactionResponse response = null;
 		if (StringUtils.isEmpty(request.getWinnerUserId())

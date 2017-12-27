@@ -14,5 +14,5 @@ public interface IPMSConsolidatorService {
 	GetTransactionHistoryResponse getTransactionHistory(GetTransactionHistoryRequest request);
 	GetTransactionChallengesMappingResponse getTransactionChallengesMappingResponse(GetTransactionChallengesMappingRequest request);
 	GetWalletDetailsResponse getWalletDetails(GetWalletDetailsRequest request);
-	ChallengeTransactionResponse getWalletDetails(ChallengeTransactionRequest request);
+	ChallengeTransactionResponse challengeTransaction(ChallengeTransactionRequest request);
 }
